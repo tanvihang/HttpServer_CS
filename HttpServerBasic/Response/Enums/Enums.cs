@@ -1,0 +1,33 @@
+﻿namespace HttpServerBasic.Response.Enums;
+
+public enum Info : uint
+{
+    ONE = 101 //PROTOCOL CHANGED    
+}
+
+public enum Success:uint
+{
+    ONE = 200, //SUCCESSFULLY
+    TWO = 201, //NEW REQUEST BUILDING
+    THREE = 204 //SUCCESS BUT RETURN NOTHING
+}
+
+public enum Redirect : uint
+{
+    ONE = 301, //PAGES HAVE BEEN MOVED PERMENANTLY
+    TWO = 302 //REDIRECT TO ANOTHER PAGE
+}
+
+public enum ClientError : uint
+{
+    ONE = 400, //SERVER COULD NOT DECODE REQUEST
+    TWO = 401, //UNAUTHENTICATED, USER NEED TO BE AUTHENTICATED
+    THREE = 403, //SERVER GOT REQUEST, BUT DENIED IT
+    FOUR = 404, //FAILED, RESOURCE NOT AVAIABLE
+}
+
+public enum ServerError : uint
+{
+    ONE = 500, //SERVER INTERNAL ERROR
+    TWO = 502, //THE HOST OR PROXY OF THE SERVER TRYING TO EXECUTE REQUEST, COULD NOT GET RESPONSE FROM UPPER SERVER
+}
