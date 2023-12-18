@@ -1,2 +1,0 @@
-IpAddr:[::1]:8080 UserID:1 -- [2023-12-17 星期日 10:51:52 上午 +08] " GET http://localhost:8080/about 200 38 -- No URL Referrer "
-IpAddr:[::1]:8080 UserID:1 -- [2023-12-17 星期日 10:51:55 上午 +08] " GET http://localhost:8080/aboutaa 404 0 -- No URL Referrer "

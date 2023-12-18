@@ -56,6 +56,7 @@ public class Worker:WebIndex
     public Func<HttpListenerContext, LogData, LogData> FindHandler(string method, string path)
     {
         
+        
         var handlers = GetType().GetMethods();
 
         foreach (var handler in handlers)
@@ -78,7 +79,7 @@ public class Worker:WebIndex
     public void WriteLog(LogData logData)
     {
         string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string filePath = $"../../../Log/{IInfoProvider.Date}.log";
+        string filePath = $"../../../Resources/Log/{IInfoProvider.Date}.log";
         
         File.AppendAllText(filePath,logData.ToString() + Environment.NewLine);
     } 
