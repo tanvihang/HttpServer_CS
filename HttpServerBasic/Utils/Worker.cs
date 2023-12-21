@@ -1,16 +1,19 @@
 ﻿using System.Net;
+using System.Reflection;
 using HttpServerBasic.Controller;
 using HttpServerBasic.Model;
 
 namespace HttpServerBasic;
 
-public class Worker:WebIndex
+public class Worker
 {
     private HttpListenerContext _context;
+    private List<IController> _controllers;
     
-    public Worker(HttpListenerContext context)
+    public Worker(HttpListenerContext context, ref List<IController> controllers)
     {
         _context = context;
+        _controllers = controllers;
     }
 
     public void Run()
@@ -55,20 +58,24 @@ public class Worker:WebIndex
 
     public Func<HttpListenerContext, LogData, LogData> FindHandler(string method, string path)
     {
-        
-        
-        var handlers = GetType().GetMethods();
 
-        foreach (var handler in handlers)
+        foreach (var controller in _controllers)
         {
-            var attribute = (RouteAttribute)Attribute.GetCustomAttribute(handler, typeof(RouteAttribute));
+            var handlers = controller.GetType().GetMethods();
             
-            if (attribute != null && attribute.Path == path)
+            foreach (var handler in handlers)
             {
-                //创建一个delegate函数指针类似的东西
-                //该delegate返回Action<HttpListenerContext>
-                //接收参数未
-                return (Func<HttpListenerContext, LogData, LogData>)Delegate.CreateDelegate(typeof(Func<HttpListenerContext, LogData, LogData>), this,handler);
+                var attribute = (RouteAttribute)Attribute.GetCustomAttribute(handler, typeof(RouteAttribute));
+            
+                if (attribute != null && attribute.Path == path)
+                {
+                    //创建一个delegate函数指针类似的东西
+                    //该delegate返回Action<HttpListenerContext>
+                    //接收参数未
+                    
+                    return (Func<HttpListenerContext, LogData, LogData>)Delegate.CreateDelegate(typeof(Func<HttpListenerContext, LogData, LogData>),controller,handler);
+                }
+            
             }
             
         }

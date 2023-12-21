@@ -1,4 +1,9 @@
 ﻿using System.Net;
+using HttpServerBasic.Controller;
+using HttpServerBasic.Sys.Repository;
+using HttpServerBasic.Sys.Repository.Impl;
+using HttpServerBasic.Sys.Service;
+using HttpServerBasic.Sys.Service.Impl;
 using Microsoft.Extensions.Configuration;
 
 namespace HttpServerBasic;
@@ -12,9 +17,36 @@ class Server
      
     public Queue<HttpListenerContext> listOfHttpListenerContext = new Queue<HttpListenerContext>();
 
+    private List<IController> controllers = new List<IController>();
+    
     public Server(IConfiguration configuration)
     {
         _configuration = configuration;
+        
+        //这边去找Controller底下的所有文件并初始化他们在这里，这样我既可以让Controller知道应该使用哪一些Service实例（Dependency Injection）
+        //还有要思考的是他应该只包含一个实例，不然每一个Worker都需要去创建就很麻烦。
+        //Dependency Injection, Can change the service used here.
+        //Repository
+        string connectionString = _configuration.GetSection("ConnectionStrings:DefaultConnection").Get<string>();
+        IUserRepository userRepository = UserRepository.GetInstance();
+        userRepository.SetConnectionString(connectionString);
+        
+        //Services
+        IUserService userService = UserService.GetInstance(); 
+        userService.SetRepository(userRepository);
+        
+        //Create controller instance
+        WebIndex webController = WebIndex.GetInstance();
+        webController.SetServices(userService);
+
+        UserController userController = UserController.GetInstance();
+        userController.SetServices(userService);
+        //------------------------------------------------------------------
+        
+        //Combine controller instance
+        controllers.Add(webController);
+        controllers.Add(userController);
+
     }
     
     public void Run()
@@ -27,10 +59,6 @@ class Server
         
         ThreadPool.SetMinThreads(1, 0);
         ThreadPool.SetMaxThreads(1, 0);
-        
-        //TODO 这边去找Controller底下的所有文件并初始化他们在这里，这样我既可以让Controller知道应该使用哪一些Service实例（Dependency Injection）
-        //还有要思考的是他应该只包含一个实例，不然每一个Worker都需要去创建就很麻烦。
-        //------------------------------------------------------------------
         
         while (true)
         {
@@ -54,7 +82,7 @@ class Server
         HttpListenerContext context = q.Dequeue();
         
         //continue until meet request
-        Worker newWorker = new Worker(context);
+        Worker newWorker = new Worker(context, ref controllers);
         newWorker.Run();
     }
 }

@@ -13,20 +13,21 @@ A project based on Http protocol to build a server.
 | ------------------ | --------------- |
 | Log File           | 2023/12/17 Done |
 | Controller         | 2023/12/17 Done |
-| Service            |                 |
+| Service            | 2023/12/21 Done |
 | View               |                 |
 | Dynamic Web        |                 |
-| Integrate Database |                 |
+| Integrate Database | 2023/12/21 Done |
 
 Last edited @2023/12/18 16:30
-1. Singleton for Service
-2. Loop through controller folder to make instance for them
+1. ~~Singleton for Service~~
+2. ~~Loop through controller folder to make instance for them~~
 
 ---
 
 # Integrate Database
 ## 1. use repository pattern for database operation
    1. 不同类型的操作放在不同的文件地下
+   2. 例如，user只用user, post只用post这样吧，我不确定
 
 
 ## 2. **dependency injection** for managing SQL connection

@@ -1,3 +1,0 @@
-IpAddr:[::1]:8080 UserID:1 -- [2023-12-18 星期一 2:42:38 下午 +08] " GET http://localhost:8080/ 200 39 -- No URL Referrer "
-IpAddr:[::1]:8080 UserID:1 -- [2023-12-18 星期一 2:42:42 下午 +08] " GET http://localhost:8080/about 200 38 -- No URL Referrer "
-IpAddr:[::1]:8080 UserID:1 -- [2023-12-18 星期一 2:42:49 下午 +08] " GET http://localhost:8080/about 200 38 -- No URL Referrer "

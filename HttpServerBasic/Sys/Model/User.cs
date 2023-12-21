@@ -5,6 +5,16 @@ public class User
     private string userName;
     private string password;
 
+    public User()
+    {
+    }
+
+    public User(string userName, string password)
+    {
+        this.userName = userName;
+        this.password = password;
+    }
+
     public string UserName
     {
         get => userName;
