@@ -5,7 +5,7 @@ A project based on Http protocol to build a server.
   - Dependency Injection
   - Repository method
 - Some key usage including: **Attribute**,**Type**, **ThreadPool** in C#
-
+- Server Side Rendering
 ---
 
 **TODO**
@@ -21,7 +21,8 @@ A project based on Http protocol to build a server.
 Last edited @2023/12/18 16:30
 1. ~~Singleton for Service~~
 2. ~~Loop through controller folder to make instance for them~~
-
+3. Make a simple home page return HTML file
+4. Test how user send post and head request
 ---
 
 # Integrate Database

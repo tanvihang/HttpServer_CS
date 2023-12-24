@@ -21,7 +21,13 @@ public class Result<T>
         this.message = message;
         this.data = data;
     }
-    
+
+    public int StatusCode => statusCode;
+
+    public string Message => message;
+
+    public T Data => data;
+
     //Results
     public static Result<T> Success(string message)
     {
@@ -37,7 +43,6 @@ public class Result<T>
     {
         return new Result<T>(statusCode, message, data);
     }
-
 
     public static Result<T> Fail(string message)
     {

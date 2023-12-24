@@ -28,7 +28,9 @@ public class Worker
         {
             fileName = "/index";
         }
-        
+
+
+        Console.WriteLine(fileName);
         //check if we have the handler for this request
         var handler = FindHandler(method, fileName);
 
@@ -38,7 +40,10 @@ public class Worker
         
         if (handler != null)
         {
-            logData = handler(_context, logData);
+            Result<long> result = handler(_context);
+            logData.StatusCode = result.StatusCode;
+            logData.FileSize = result.Data;
+            
             WriteLog(logData);
         }
         else
@@ -56,7 +61,7 @@ public class Worker
         IInfoProvider.COUNT = IInfoProvider.COUNT - 1;
     }
 
-    public Func<HttpListenerContext, LogData, LogData> FindHandler(string method, string path)
+    public Func<HttpListenerContext, Result<long>> FindHandler(string method, string path)
     {
 
         foreach (var controller in _controllers)
@@ -73,7 +78,7 @@ public class Worker
                     //该delegate返回Action<HttpListenerContext>
                     //接收参数未
                     
-                    return (Func<HttpListenerContext, LogData, LogData>)Delegate.CreateDelegate(typeof(Func<HttpListenerContext, LogData, LogData>),controller,handler);
+                    return (Func<HttpListenerContext, Result<long>>)Delegate.CreateDelegate(typeof(Func<HttpListenerContext, Result<long> >),controller,handler);
                 }
             
             }
@@ -86,9 +91,12 @@ public class Worker
     public void WriteLog(LogData logData)
     {
         string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string filePath = $"../../../Resources/Log/{IInfoProvider.Date}.log";
         
-        File.AppendAllText(filePath,logData.ToString() + Environment.NewLine);
+        // string filePath = $"../../../Resources/Log/{IInfoProvider.Date}.log";
+        string filePath = FileUtils.GetFilePath($"/Resources/Log/{IInfoProvider.Date}.log");
+        FileUtils.WriteToFile(filePath, logData.ToString());
+        
+        // File.AppendAllText(filePath,logData.ToString() + Environment.NewLine);
     } 
     
 }

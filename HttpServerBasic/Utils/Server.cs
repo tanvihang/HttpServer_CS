@@ -41,11 +41,15 @@ class Server
 
         UserController userController = UserController.GetInstance();
         userController.SetServices(userService);
+
+        CssController cssController = CssController.GetInstance();
+        
         //------------------------------------------------------------------
         
         //Combine controller instance
         controllers.Add(webController);
         controllers.Add(userController);
+        controllers.Add(cssController);
 
     }
     

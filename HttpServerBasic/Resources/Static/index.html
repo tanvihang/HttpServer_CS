@@ -3,8 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <link href="./css/main.css" rel="stylesheet">
+    <!--CSS_REFERENCE-->
 </head>
-<body>
+<body> 
+    <button id="btn-theme">Toggle theme</button>
+    <h1>Lorem, ipsum dolor.</h1>
+    <h2>Lorem ipsum dolor.</h2>
+    <h3>Lorem, ipsum dolor.</h3>
+    <h4>Lorem, ipsum dolor.</h4>
+    <h5>Lorem, ipsum dolor.</h5>
+    <h6>Lorem, ipsum dolor.</h6>
+    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Adipisci minus consectetur repudiandae! Maxime, harum. Inventore eius necessitatibus nulla dolore aliquid veritatis beatae deserunt veniam, soluta iusto illum quasi repellat tempora nobis sapiente praesentium fugit totam cupiditate voluptate, possimus reprehenderit hic, ullam minus. Error autem impedit quam repellendus ab atque veritatis?</p>
+
+<script>
+    var themeBtn = document.querySelector("#btn-theme");
+
+    themeBtn.addEventListener('click',()=>{
+        document.body.classList.toggle('dark-theme');
+    })
+</script>
 
 </body>
+
+
 </html>

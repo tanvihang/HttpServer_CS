@@ -1,0 +1,11 @@
+/* Light Theme */
+:root{
+    --theme-background: #D7D3E1;
+    --theme-text: #150d26ce;
+}
+
+.dark-theme{
+    --theme-background:#150d26ce ;
+    --theme-text: #D7D3E1;
+}
+

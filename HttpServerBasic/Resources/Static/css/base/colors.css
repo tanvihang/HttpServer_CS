@@ -1,0 +1,25 @@
+/* Colors */
+:root{
+    --primary-color: #382366;
+    --secondary-color: #5D3587;
+    --secondary-two-color: #A367B1;
+    --secondary-three-color: #FFD1E3;
+    --accent-color: #BBB780;
+
+    --dark100:#150D26;
+    --dark80: #150d26ce;
+    --dark60:#150d269f;
+    --dark40:#150d2664;
+    --dark20:#150d2630;
+
+    --light100: #B0A7C2;
+    --light80: #C4BDD1;
+    --light60: #D7D3E1;
+    --light40: #EBE9F0;
+    --light20: #FFFFFF;
+
+    --positive: #5F8670;
+    --warning: #FF9800;
+    --error: #B80000;
+    --informative: #3887BE;
+}
